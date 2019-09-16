@@ -1,4 +1,4 @@
-package com.example.bms;
+package com.example.bms.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -7,56 +7,57 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
 
+import com.example.bms.R;
+import com.example.bms.WebViewConfig;
 import com.example.bms.fragment.OccupancyByTVFragment;
-import com.example.bms.fragment.OccupancyDetileFragment;
+import com.example.bms.fragment.OccupancyDetailFragment;
 import com.example.bms.fragment.OccupancyIndustryFragment;
 import com.example.bms.fragment.SummaryFragment;
 import com.example.bms.services.ApiRetrofit;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-
-    private ActionBarDrawerToggle toggle;
-    private NavigationView mNavigation;
-    private DrawerLayout mdrawerLayout;
     private Toolbar toolbar;
+    private DrawerLayout mdrawerLayout;
+    private NavigationView mNavigation;
+    private ActionBarDrawerToggle toggle;
     private String token;
-    private TextView tvUsername;
 
     private String title = "";
+
+    private static final String TAG = "HomeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.navigation_drawer);
 
         //token = getIntent().getStringExtra("token");
         token = getSharedPreferences("TOKEN", 0)
                 .getString("x", "");
 
-        mdrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mNavigation = (NavigationView) findViewById(R.id.navigation);
-
-        mNavigation.setNavigationItemSelectedListener(this);
-
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        toolbar.setLogo(R.drawable.logomnc); //use logo no click
-        //toolbar.setNavigationIcon(R.drawable.logomnc);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); //arrow back in toolbal
+        mdrawerLayout = findViewById(R.id.drawer_layout);
 
-        mdrawerLayout.addDrawerListener(toggle);
+        mNavigation = findViewById(R.id.navigation_view);
+        mNavigation.setNavigationItemSelectedListener(this);
+
         toggle = new ActionBarDrawerToggle(HomeActivity.this, mdrawerLayout, toolbar,
                 R.string.open, R.string.close);
-        toggle.syncState();
+        mdrawerLayout.setDrawerListener(toggle);
+
+        //toolbar.setNavigationIcon(R.drawable.ic_account); //custome icon navigation
+        toggle.syncState(); //use navigation icon burger
 
         //main layout
         if (savedInstanceState == null) {
@@ -67,13 +68,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             title = ("Summary 4 TV");
             mNavigation.setCheckedItem(R.id.menu_summary);
             //end main layout
-        }
 
-        //setActionBarTitle(title);
+        }
 
         retrotittoketn();
 
     }
+
 
     private void retrotittoketn() {
 
@@ -86,9 +87,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId())
-        {
-            case R.id.menu_summary :
+        int id = (item.getItemId());
+
+        switch (id) {
+            case R.id.menu_summary:
                 title = ("Summary 4 TV");
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -96,23 +98,23 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         .commit();
                 break;
 
-            case R.id.menu_occupancyByTv :
+            case R.id.menu_occupancyByTv:
                 title = ("Occupancy By TV");
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, new OccupancyByTVFragment())
+                        .replace(R.id.fragment_container, new OccupancyByTVFragment(token))
                         .commit();
                 break;
 
-            case R.id.menu_occupancyDetail :
+            case R.id.menu_occupancyDetail:
                 title = ("Occupancy Detail");
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, new OccupancyDetileFragment())
+                        .replace(R.id.fragment_container, new OccupancyDetailFragment())
                         .commit();
                 break;
 
-            case R.id.menu_occupancy_industry :
+            case R.id.menu_occupancy_industry:
                 title = ("Occupancy Industry");
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -123,17 +125,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.menu_logout:
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
+
                 getSharedPreferences("TOKEN", 0)
                         .edit()
                         .clear()
-                        .commit();
-
+                        .apply();
         }
 
+        // open or close the drawer if home button is pressed
         mdrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    //close navDrawer
     @Override
     public void onBackPressed() {
 
@@ -143,14 +147,5 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
-    //method title
-    private void setActionBarTitle(String title) {
-
-        if (getSupportActionBar() != null)
-        {
-            getSupportActionBar().setTitle(title);
-        }
-    }
-
+    //close navDrawer
 }

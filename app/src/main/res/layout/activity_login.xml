@@ -5,18 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradiant"
-    tools:context=".LoginActivity">
+    tools:context=".activity.LoginActivity">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="96dp"
-        android:orientation="vertical"
-        android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -74,6 +68,7 @@
                         android:layout_height="50dp"
                         android:background="@drawable/bg_combine_bginput_after_before_tap"
                         android:fontFamily="@font/mmedium"
+                        android:lines="1"
                         android:paddingLeft="12dp" />
 
                 </LinearLayout>
@@ -102,6 +97,7 @@
                         android:background="@drawable/bg_combine_bginput_after_before_tap"
                         android:fontFamily="@font/mmedium"
                         android:inputType="textPassword"
+                        android:lines="1"
                         android:paddingLeft="12dp" />
 
                 </LinearLayout>

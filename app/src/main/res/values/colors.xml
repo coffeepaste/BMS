@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1D4595</color>
-    <!--<color name="colorPrimary">#0A3D65</color>-->
-    <color name="colorPrimaryDark">#0C368B</color>
-    <!--<color name="colorPrimaryDark">#04304F</color>-->
-    <color name="colorAccent">#D81B60</color>
-    
+    <color name="colorPrimary">#377EFA</color> <!--3F51B5-->  <!--#2897EF-->
+    <color name="colorPrimaryDark">#377EFA</color> <!--303F9F-->  <!--0061ae-->
+    <color name="colorAccent">#FF4081</color> <!--FF4081-->
+
     <!--add color-->
-    <color name="bluePrimary">#063557</color>
-    <color name="blueSecondary">#378FE6</color>
-    <color name="bluePrimary2">#213F7B</color>
+    <color name="blueSecondary">#2081f8</color>
     <color name="whitePrimary">#FFFFFF</color>
     <color name="gray_secondary">#F1F2F5</color>
     <color name="transparent">#80000000</color>
@@ -21,5 +17,5 @@
 
     <!---->
     <color name="iron">#CCCCCC</color>
-    <color name="white">#FFFFFF</color>
+    <color name="white">#ffffff</color>
 </resources>

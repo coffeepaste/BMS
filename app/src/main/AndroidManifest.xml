@@ -35,8 +35,8 @@
             android:screenSize="xlarge" />
     </compatible-screens>
     <!--<uses-sdk-->
-        <!--android:minSdkVersion="19"-->
-        <!--android:targetSdkVersion="28" />-->
+    <!--android:minSdkVersion="19"-->
+    <!--android:targetSdkVersion="28" />-->
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -55,38 +55,40 @@
         tools:targetApi="n">
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:alwaysRetainTaskState="true"
             android:clearTaskOnLaunch="false"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:enabled="true"
             android:exported="true"
             android:launchMode="singleTop"
-
-            android:theme="@style/AppTheme.NoActionBar"
+            android:hardwareAccelerated="true"
+            android:theme="@style/AppTheme.BlueLogin"
             android:windowSoftInputMode="adjustNothing">
         </activity>
 
         <activity
-
-            android:name=".HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".SplashScreenActivity"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen">
+            android:name=".activity.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.SplashScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
 
         </activity>
 
         <activity
-            android:name=".GetStartedActivity"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
+            android:name=".activity.GetStartedActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 

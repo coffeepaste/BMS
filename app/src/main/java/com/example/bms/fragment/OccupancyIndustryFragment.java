@@ -26,7 +26,7 @@ public class OccupancyIndustryFragment extends Fragment {
     private ProgressDialog mprogressDialog;
     private WebView wv_OccupancyIndustry;
     private SwipeRefreshLayout mswipeRefreshLayout;
-    //private String token;
+    private String token;
 
 
     //url
@@ -50,7 +50,7 @@ public class OccupancyIndustryFragment extends Fragment {
 
         getActivity().setTitle("Occupancy Industry");
 
-        //this.token = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE).getString("x", "");
+        this.token = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE).getString("x", "");
 
         wv_OccupancyIndustry = (WebView) view.findViewById(R.id.wv_OccupancyIndustry);
 
@@ -88,7 +88,7 @@ public class OccupancyIndustryFragment extends Fragment {
         wv_OccupancyIndustry.loadUrl(pageUrl);
         //wbSummry.addJavascriptInterface(new SimpleWebJavascriptInterface(getActivity()), "Android");
         mswipeRefreshLayout.setRefreshing(true);
-        mswipeRefreshLayout.setColorSchemeResources(R.color.greenPrimary, R.color.yellowPrimary, R.color.redPrimary, R.color.bluePrimary);
+        mswipeRefreshLayout.setColorSchemeResources(R.color.greenPrimary, R.color.yellowPrimary, R.color.redPrimary, R.color.blueSecondary);
         wv_OccupancyIndustry.setWebViewClient(new WebViewClient() {
 
             @Override

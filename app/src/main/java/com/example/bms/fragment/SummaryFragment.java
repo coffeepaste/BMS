@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,6 @@ public class SummaryFragment extends Fragment {
 
     //url
     private String pageUrl = "http://portal-bams.mncgroup.com:8008/";
-
     private String DEFAULT_ERROR_PAGE_PATH = "file:///android_asset/html/colorlib_error_404_10/index.html";
 
     private static final String TAG = "WebViewCustomization";
@@ -49,9 +49,9 @@ public class SummaryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_summary, container, false);
 
-        getActivity().setTitle("Summry 4 TV");
+        getActivity().setTitle("Summary 4 TV");
 
-		this.token = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE).getString("x", "");
+        this.token = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE).getString("x", "");
 
         wbSummry = (WebView) view.findViewById(R.id.wv_Summry);
 
@@ -69,6 +69,7 @@ public class SummaryFragment extends Fragment {
         return view;
     }
 
+    //loadweb
     private void LoadWeb() {
 
         wbSummry.getSettings().setJavaScriptEnabled(true);
@@ -78,11 +79,14 @@ public class SummaryFragment extends Fragment {
         wbSummry.getSettings().setAppCacheEnabled(true);
         wbSummry.getSettings().setSupportZoom(true);
         wbSummry.getSettings().setSupportMultipleWindows(true);
-        mprogressDialog = ProgressDialog.show(getActivity(),"","Please wait for a moment...");
+        mprogressDialog = ProgressDialog.show(getActivity(), "", "Please wait for a moment...");
         wbSummry.loadUrl(pageUrl + token);
+        Log.e(TAG, "LoadWeb: " + pageUrl);
+
         //wbSummry.addJavascriptInterface(new SimpleWebJavascriptInterface(getActivity()), "Android");
         mswipeRefreshLayout.setRefreshing(true);
-        mswipeRefreshLayout.setColorSchemeResources(R.color.greenPrimary, R.color.yellowPrimary, R.color.redPrimary, R.color.bluePrimary);
+        mswipeRefreshLayout.setColorSchemeResources(R.color.greenPrimary, R.color.yellowPrimary, R.color.redPrimary, R.color.blueSecondary);
+
         wbSummry.setWebViewClient(new WebViewClient() {
 
             @Override
@@ -103,6 +107,5 @@ public class SummaryFragment extends Fragment {
                 mswipeRefreshLayout.setRefreshing(false);
             }
         });
-
     }
 }

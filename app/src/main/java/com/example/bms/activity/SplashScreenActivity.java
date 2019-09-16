@@ -1,4 +1,4 @@
-package com.example.bms;
+package com.example.bms.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.example.bms.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

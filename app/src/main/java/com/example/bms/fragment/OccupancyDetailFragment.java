@@ -19,12 +19,12 @@ import com.example.bms.R;
  * A simple {@link Fragment} subclass.
  */
 
-public class OccupancyDetileFragment extends Fragment {
+public class OccupancyDetailFragment extends Fragment {
 
     private ProgressDialog mprogressDialog;
     private WebView wv_OccupancyDetile;
     private SwipeRefreshLayout mswipeRefreshLayout;
-    //private String token;
+    private String token;
 
 
     //url
@@ -35,7 +35,7 @@ public class OccupancyDetileFragment extends Fragment {
     private static final String TAG = "WebViewCustomization";
 
 
-    public OccupancyDetileFragment() {
+    public OccupancyDetailFragment() {
         // Required empty public constructor
     }
 
@@ -46,7 +46,7 @@ public class OccupancyDetileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_occupancy_detile, container, false);
 
-        getActivity().setTitle("Occupancy Detile");
+        getActivity().setTitle("Occupancy Detail");
 
         //this.token = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE).getString("x", "");
 
@@ -86,7 +86,7 @@ public class OccupancyDetileFragment extends Fragment {
         wv_OccupancyDetile.loadUrl(pageUrl);
         //wbSummry.addJavascriptInterface(new SimpleWebJavascriptInterface(getActivity()), "Android");
         mswipeRefreshLayout.setRefreshing(true);
-        mswipeRefreshLayout.setColorSchemeResources(R.color.greenPrimary, R.color.yellowPrimary, R.color.redPrimary, R.color.bluePrimary);
+        mswipeRefreshLayout.setColorSchemeResources(R.color.greenPrimary, R.color.yellowPrimary, R.color.redPrimary, R.color.blueSecondary);
         wv_OccupancyDetile.setWebViewClient(new WebViewClient() {
 
             @Override
