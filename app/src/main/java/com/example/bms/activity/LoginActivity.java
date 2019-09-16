@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.bms.R;
+import com.example.bms.model.LoginLdap;
 import com.example.bms.services.ApiRetrofit;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText edt_Username, edt_Password;
 
     //token
-    private String token;
+    private String sendToken;
 
     //private static final String EMAIL_ADDRESS = "@mncgroup.com"
     //private static final String USERNAME_PATTERN = "^[a-z0-9_-]{3,15}$";
@@ -108,55 +109,55 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //end progressDialog
 
         //call class interface and class Apiretrofit
-        Call<ResponseBody> call = ApiRetrofit
+        Call<LoginLdap> call = ApiRetrofit
                 .getInstance()
                 .getApiClien()
                 .UserLdapClient(username, password);
 
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<LoginLdap>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<LoginLdap> call, Response<LoginLdap> response) {
 
-                try {
-                    //Log.e("TEST2", response.body().string());
+                //Log.e("TEST2", response.body().string());
 
-                    String resp = response.body().string();
-                    Log.e("AAAA2", resp);
+                String token = response.headers().get("Token");
+                //String resp = response.body().string();
+                //Log.e("AAAA2", resp);
+                LoginLdap loginResponse = response.body();
 
-                    //if (resp != null) {
-                    if (resp.trim().equals("gagal")) {
-                        Log.e("LOGINGAGAL", "x");
-                        Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-                        return;
 
-                    } else {
+                //if (resp != null) {
+                if (token != null) {
+                    Log.e("LOGINGAGAL", "x");
+                    Log.e("tokenTAG", "Token : " + token);
+                    sendToken = token;
 
-                        //Toast.makeText(LoginActivity.this, response.body().string(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
 
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        intent.putExtra("token", response.body().string());
 
-                        SharedPreferences.Editor sp
-                                = getSharedPreferences("TOKEN",
-                                MODE_PRIVATE).edit();
+                } else {
 
-                        sp.putString("x", response.body().string());
-                        sp.commit();
-                        startActivity(intent);
-                        finish();
+                    //Toast.makeText(LoginActivity.this, response.body().string(), Toast.LENGTH_SHORT).show();
 
-                    }
-                    //}
-                } catch (IOException e) {
-                    Log.e("ERROR", Log.getStackTraceString(e));
-                    e.printStackTrace();
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    intent.putExtra("token", response.body().toString());
+
+                    SharedPreferences.Editor sp
+                            = getSharedPreferences("TOKEN",
+                            MODE_PRIVATE).edit();
+
+                    sp.putString("x", response.body().toString());
+                    sp.apply();
+                    startActivity(intent);
+                    finish();
+
                 }
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<LoginLdap> call, Throwable t) {
 
                 if (haveNetwork()) {
 

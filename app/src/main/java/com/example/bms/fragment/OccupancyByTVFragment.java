@@ -29,14 +29,14 @@ public class OccupancyByTVFragment extends Fragment {
     private String token;
 
     //url
-    private String pageUrl = "http://portal-bams.mncgroup.com:8008/occupancybytv?token=" + token;
+    private String pageUrl = "http://portal-bams.mncgroup.com:8008/occupancybytv";
 
     private String DEFAULT_ERROR_PAGE_PATH = "file:///android_asset/html/colorlib_error_404_10/index.html";
 
     private static final String TAG = "WebViewCustomization";
 
 
-    public OccupancyByTVFragment(String token) {
+    public OccupancyByTVFragment() {
 
         // Required empty public constructor
     }
@@ -48,9 +48,10 @@ public class OccupancyByTVFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_occupancy_by_tv, container, false);
 
-        getActivity().setTitle("Occupancy By TV");
+        //getActivity().setTitle("Occupancy By TV");
 
-        this.token = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE).getString("x", "");
+        OccupancyByTVFragment.this.token = getActivity()
+                .getSharedPreferences("TOKEN", MODE_PRIVATE).getString("x", "");
 
         wv_OccupancyByTv = (WebView) view.findViewById(R.id.wv_OccupancyByTv);
 

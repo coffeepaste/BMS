@@ -5,12 +5,9 @@ public class LoginLdap {
     private String username;
     private String password;
 
-    private String token;
-
-    public LoginLdap(String username, String password, String token) {
+    public LoginLdap(String username, String password) {
         this.username = username;
         this.password = password;
-        this.token = token;
     }
 
 
@@ -30,11 +27,4 @@ public class LoginLdap {
         this.password = password;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 }

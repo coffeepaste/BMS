@@ -9,19 +9,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.bms.R;
-import com.example.bms.WebViewConfig;
 import com.example.bms.fragment.OccupancyByTVFragment;
 import com.example.bms.fragment.OccupancyDetailFragment;
 import com.example.bms.fragment.OccupancyIndustryFragment;
 import com.example.bms.fragment.SummaryFragment;
-import com.example.bms.services.ApiRetrofit;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -47,41 +42,44 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mdrawerLayout = findViewById(R.id.drawer_layout);
+        /*
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null)
+        {
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
+        */
 
         mNavigation = findViewById(R.id.navigation_view);
+        mdrawerLayout = findViewById(R.id.drawer_layout);
+
         mNavigation.setNavigationItemSelectedListener(this);
 
-        toggle = new ActionBarDrawerToggle(HomeActivity.this, mdrawerLayout, toolbar,
-                R.string.open, R.string.close);
-        mdrawerLayout.setDrawerListener(toggle);
-
-        //toolbar.setNavigationIcon(R.drawable.ic_account); //custome icon navigation
-        toggle.syncState(); //use navigation icon burger
+        navigationDrawer();
 
         //main layout
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, new SummaryFragment(token))
+                    .replace(R.id.fragment_container, new SummaryFragment())
                     .commit();
             title = ("Summary 4 TV");
             mNavigation.setCheckedItem(R.id.menu_summary);
             //end main layout
 
         }
-
-        retrotittoketn();
-
     }
 
+    //navigation drawer
+    private void navigationDrawer() {
 
-    private void retrotittoketn() {
-
-        ApiRetrofit retrofittoken = new ApiRetrofit();
-        retrofittoken.ApiRetrofit2(token);
+        toggle = new ActionBarDrawerToggle(HomeActivity.this, mdrawerLayout, toolbar,
+                R.string.open, R.string.close);
+        mdrawerLayout.setDrawerListener(toggle);
+        //toolbar.setNavigationIcon(R.drawable.ic_account); //custome icon navigation
+        toggle.syncState(); //use navigation icon burger
     }
-
 
     //implement method
     @Override
@@ -94,7 +92,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 title = ("Summary 4 TV");
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, new SummaryFragment(token))
+                        .replace(R.id.fragment_container, new SummaryFragment())
                         .commit();
                 break;
 
@@ -102,7 +100,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 title = ("Occupancy By TV");
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, new OccupancyByTVFragment(token))
+                        .replace(R.id.fragment_container, new OccupancyByTVFragment())
                         .commit();
                 break;
 

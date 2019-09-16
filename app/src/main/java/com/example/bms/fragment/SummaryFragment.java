@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 
 import com.example.bms.R;
 
@@ -37,8 +35,7 @@ public class SummaryFragment extends Fragment {
 
     private static final String TAG = "WebViewCustomization";
 
-    public SummaryFragment(String token) {
-        this.token = token;
+    public SummaryFragment() {
     }
 
 
@@ -49,9 +46,10 @@ public class SummaryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_summary, container, false);
 
-        getActivity().setTitle("Summary 4 TV");
+        //getActivity().setTitle("Summary 4 TV");
 
-        this.token = getActivity().getSharedPreferences("TOKEN", MODE_PRIVATE).getString("x", "");
+        SummaryFragment.this.token = getActivity()
+                .getSharedPreferences("TOKEN", MODE_PRIVATE).getString("x", "");
 
         wbSummry = (WebView) view.findViewById(R.id.wv_Summry);
 
